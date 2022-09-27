@@ -8,7 +8,6 @@ const NewTask = ({data, setDataItem, addData}) => {
             <div style={{ margin: "30px 45px" }}>
                 <Task data={data} setDataItem={setDataItem} addData={addData}/>
             </div>
-
         </div>
     );
 }
