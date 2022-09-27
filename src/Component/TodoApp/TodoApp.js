@@ -4,32 +4,26 @@ import NewTask from "../NewTask/NewTask";
 
 const TodoApp = () => {
     const [data, setData] = useState([]);
-    const [dataItem,setDataItem] = useState([]);
 
-    console.log("dataItem",dataItem);
     useEffect(()=>{
         if(localStorage.getItem('data')===null){
             localStorage.setItem('data',JSON.stringify(data))
         }else{
-            let temp = JSON.parse(localStorage.getItem('data'))
-            setData(temp)
+            let tem = JSON.parse(localStorage.getItem('data'))
+            setData(tem)
         }
     },[])
-    // localStorage.setItem('data', JSON.stringify(data));
-    useEffect(()=>{
-        const temp = data.concat(dataItem);
+    const addData = (dataItem) => {
+        let temp = data.concat([dataItem])
+        temp.sort((item1,item)=> Date.parse(item1.dueDate) - Date.parse(item.dueDate) )
         setData(temp);
-        localStorage.setItem('data', JSON.stringify(temp));
-        
-    },[dataItem])
-
-    // useEffect(()=>{
-    //     localStorage.setItem('data', JSON.stringify(data));
-    // },[data])
+        console.log("data",data)
+        localStorage.setItem('data',JSON.stringify(temp))
+    }
 
     return (
         <div style={{width: "1250px", margin: "100px auto 200px auto", border:"1px solid black", display:"flex"}}>
-            <NewTask  setDataItem={setDataItem}/>
+            <NewTask  addData={addData} />
             <TodoList data={data} setData={setData} />        
         </div>
     );
