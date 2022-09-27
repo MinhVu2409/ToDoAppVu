@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Task from "../Task/Task";
-import active from "../img/active.png";
-// import noneActive from "../img/noneactive.png";
+import activeImg from "../img/active.png";
+import noneActiveImg from "../img/none-active.png";
 
 const TodoList = ({ data , setData}) => {
     const [showDetal, setShowDetal] = useState(false);
+    const [active,setActive] = useState(data.active);
     const arr = [];
     console.log("arr=============>",arr);
     console.log("data==============>",data);
@@ -12,6 +13,16 @@ const TodoList = ({ data , setData}) => {
     const onClickDeleteItem = (idx) => {
         setData(data.filter((e,index)=> index!== idx));  
         
+    }
+    const onClickActive = (e,idx) => {
+        console.log('data',data);
+        let ar = data.map((e,index) =>{
+            if(idx === index){
+                e.active= !e.active;
+            } 
+        })
+        console.log("arr");
+        setData(...ar);
     }
     return (
         <div style={{ width: "55%", display: 'flex', flexDirection: "column", borderRight: "1px solid black" }}>
@@ -24,8 +35,9 @@ const TodoList = ({ data , setData}) => {
                         <div style={{ paddingTop: "15px" }} key={idx}>
                             <div style={{ display: "flex", position: "relative", alignItems: "center", border: "1px solid black" }}>
                                 <img
-                                    src={active}
+                                    src={e.active ? activeImg : noneActiveImg}
                                     style={{ width: "20px", height: "20px", margin: "0 15px" }}
+                                    onClick={()=> onClickActive(e,idx)}
                                 />
                                 <p> {e.title} </p>
                                 <div style={{ display: "flex", position: "absolute", right: "20px" }}>

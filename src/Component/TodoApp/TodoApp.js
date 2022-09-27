@@ -15,7 +15,7 @@ const TodoApp = () => {
             setData(temp)
         }
     },[])
-
+    // localStorage.setItem('data', JSON.stringify(data));
     useEffect(()=>{
         const temp = data.concat(dataItem);
         setData(temp);
