@@ -3,7 +3,7 @@ import activeImg from "../img/active.png";
 import noneActiveImg from "../img/none-active.png";
 import Task from "../Task/Task";
 
-const TodoList = ({ datas, setData }) => {
+const TodoList = ({ datas, setDatas }) => {
   const [showDetal, setShowDetal] = useState(false);
   const [idShowDetail, setIdShowDetail] = useState();
   const [updateSuccess, setUpdateSuccess] = useState(false)
@@ -20,7 +20,7 @@ const TodoList = ({ datas, setData }) => {
 
   const onClickDeleteItem = (id) => {
     const temp = datas.filter((e) => e.id !== id)
-    setData(temp);
+    setDatas(temp);
     localStorage.setItem("data", JSON.stringify(temp))
 
   }
@@ -28,12 +28,12 @@ const TodoList = ({ datas, setData }) => {
   const onClickActive = (index) => {
     const temp = [...datas];
     temp[index].active = !temp[index].active;
-    setData(temp);
+    setDatas(temp);
   }
 
   const onClickDeleteAll = () => {
     const temp = datas.filter((e) => e.active === false)
-    setData(temp);
+    setDatas(temp);
     localStorage.setItem("data", JSON.stringify(temp))
   }
 
@@ -44,7 +44,7 @@ const TodoList = ({ datas, setData }) => {
       const temps = _data.filter((e) => {
         return e?.title && e?.title?.toLowerCase().includes(keyword?.toLowerCase().trim())
       });
-      setData(temps)
+      setDatas(temps)
     }, 250);
   }
 
@@ -52,7 +52,7 @@ const TodoList = ({ datas, setData }) => {
     const index = datas.findIndex((e) => e.id === data.id)
     const temp = datas;
     temp[index] = { ...temp[index], ...data }
-    setData(temp)
+    setDatas(temp)
     localStorage.setItem("data", JSON.stringify(temp));
     setUpdateSuccess(true);
     setTimeout(() => {
@@ -93,8 +93,8 @@ const TodoList = ({ datas, setData }) => {
                   </div>
                 </div>
               </div>
-              {idShowDetail === e.id && (
-                <div style={{ padding: "25px", border: "1px solid black", display: showDetal ? "block" : "none" }}>
+              {idShowDetail === e.id && showDetal && (
+                <div style={{ padding: "25px", border: "1px solid black" }}>
                   <Task showDetal={showDetal} data={e} id={e.id} updateData={updateData} updateSuccess={updateSuccess}
                     initialValues={{
                       title: e.title,

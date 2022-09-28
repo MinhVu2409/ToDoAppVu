@@ -4,12 +4,13 @@ import * as Yup from 'yup';
 import moment from "moment";
 const today = new Date().toString();
 
-const Task = ({ showDetal, updateData, addData, id, updateSuccess, initialValues = {
-  title: "",
-  decription: '',
-  dueDate: today,
-  piority: "normal",
-}
+const Task = ({ showDetal, updateData, addData, id, updateSuccess,
+  initialValues = {
+    title: "",
+    decription: '',
+    dueDate: today,
+    piority: "normal",
+  }
 }) => {
   const formik = useFormik({
     enableReinitialize: true,
@@ -20,7 +21,7 @@ const Task = ({ showDetal, updateData, addData, id, updateSuccess, initialValues
     }),
     onSubmit: (values, onSubmitProps) => {
       if (!showDetal) {
-        const id = Math.floor(Math.random() * 100000);;
+        const id = Math.floor(Math.random() * 10000000);;
         const active = false
         addData({ ...values, id, active });
         onSubmitProps.resetForm();
