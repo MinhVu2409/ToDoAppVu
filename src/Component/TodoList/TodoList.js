@@ -53,9 +53,10 @@ const TodoList = ({ datas, setData }) => {
     const temp = datas;
     temp[index] = { ...temp[index], ...data }
     setData(temp)
-    localStorage.setItem("data", JSON.stringify(temp))
+    localStorage.setItem("data", JSON.stringify(temp));
+    setUpdateSuccess(true);
     setTimeout(() => {
-      setUpdateSuccess(true)
+      setUpdateSuccess(false);
     }, 2000);
   }
 
